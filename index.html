@@ -7,43 +7,108 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(135deg, #1a1a1a, #333333);
-      color: #ffffff;
+      background: linear-gradient(270deg, #6a11cb, #2575fc, #ff0080, #ff8c00);
+      background-size: 800% 800%;
+      animation: gradientShift 15s ease infinite;
+      color: #fff;
       text-align: center;
+      overflow: hidden;
     }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     h1 {
-      font-size: 3rem;
-      margin: 0 0 1rem 0;
+      font-size: 4rem;
+      margin: 0 0 2rem 0;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
     }
-    p {
-      font-size: 1.25rem;
-      margin: 0;
-      opacity: 0.8;
+
+    #glurp-wall {
+      font-size: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 200px;
     }
+
+    .glurp-line {
+      opacity: 0;
+      animation: fadeInOut 2s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: scale(0.9); }
+      20% { opacity: 1; transform: scale(1); }
+      80% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.1); }
+    }
+
     footer {
       position: absolute;
-      bottom: 10px;
+      bottom: 15px;
       width: 100%;
       text-align: center;
-      font-size: 0.85rem;
-      color: #aaaaaa;
+      font-size: 1rem;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div>
-    <h1>glurp.it</h1>
-    <p>Something interesting is coming soon.</p>
-  </div>
+  <h1>glurp.it</h1>
+  <div id="glurp-wall"></div>
   <footer>
-    &copy; <span id="year"></span> glurp.it
+    &copy; <span id="year"></span> glurp.it | Just glurp it
   </footer>
+
   <script>
+    const glurps = [
+      "Loading... glurp it",
+      "Glurping your imagination",
+      "Dream it, glurp it",
+      "Glurp initiated",
+      "Optimizing glurp sequence",
+      "Glurping faster than light",
+      "One more glurp to go",
+      "Glurp completed successfully",
+      "If it moves, glurp it",
+      "If it shines, glurp it",
+      "Everything can be glurped",
+      "Glurp like no one is watching",
+      "Preparing the glurpverse",
+      "Glurp 100% achieved",
+      "Stay calm and glurp it"
+    ];
+
+    const wall = document.getElementById("glurp-wall");
+    let index = 0;
+
+    function showNextGlurp() {
+      const line = document.createElement("div");
+      line.className = "glurp-line";
+      line.textContent = glurps[index % glurps.length];
+      wall.appendChild(line);
+
+      // Remove old lines after some time to avoid overflow
+      setTimeout(() => {
+        wall.removeChild(line);
+      }, 2000);
+
+      index++;
+    }
+
+    setInterval(showNextGlurp, 1000);
+
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
